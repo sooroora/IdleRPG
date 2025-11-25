@@ -2,8 +2,8 @@
 {
     public IdleState Idle;
     public WalkToTargetState WalkToTarget;
-    public FollowState Follow;
     public AttackState Attack;
+    public HitState Hit;
     
     public CharacterStateMachine(Character _character)
     {
@@ -11,13 +11,13 @@
         
         Idle = CreateState<IdleState>();
         WalkToTarget = CreateState<WalkToTargetState>();
-        Follow = CreateState<FollowState>();
         Attack = CreateState<AttackState>();
+        Hit = CreateState<HitState>();
+        
         
         ChangeState(Idle);
     }
-
-
+    
     
     public T CreateState<T>() where T : BaseState, new()
     {

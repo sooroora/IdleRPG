@@ -13,9 +13,11 @@ public class SimplePool : MonoBehaviour
     void Awake()
     {
         pool = new List<GameObject>();
-        for (int i = 0; i < pool.Count; i++)
+        for (int i = 0; i < defaultPoolSize; i++)
         {
-            CreateGameObject();
+            GameObject newObject = CreateGameObject();
+            newObject.transform.SetParent(this.gameObject.transform,true);
+            newObject.SetActive(false);
         }
     }
 

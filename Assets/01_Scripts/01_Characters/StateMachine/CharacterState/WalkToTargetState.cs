@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
-public class WalkToTargetState : BaseState
+public class WalkToTargetState : BaseState, IControllable
 {
 
     public override void Enter()
@@ -36,11 +36,22 @@ public class WalkToTargetState : BaseState
     {
         if (stateMachine.Character.Target == null)
         {
-            Vector3 randomPos = stateMachine.Character.transform.position + Utility.GetRandomDirection() * Random.Range(1f, 10f);
+            Vector3 randomPos = stateMachine.Character.transform.position + 
+                                Utility.GetRandomForwardDirection(stateMachine.Character.transform.forward) * Random.Range(5f, 10f);
+            
             if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, 10f, NavMesh.AllAreas))
             {
                 stateMachine.Character.Agent.SetDestination(hit.position);
                 return;
+            }
+            else
+            {
+                randomPos = stateMachine.Character.transform.position + Utility.GetRandomForwardDirection(-stateMachine.Character.transform.forward)* Random.Range(5f, 10f);
+                if (NavMesh.SamplePosition(randomPos, out hit, 10f, NavMesh.AllAreas))
+                {
+                    stateMachine.Character.Agent.SetDestination(hit.position);
+                    return;
+                }
             }
         }
         else
@@ -57,4 +68,7 @@ public class WalkToTargetState : BaseState
     }
 
 
+    public void HandleInput()
+    {
+    }
 }

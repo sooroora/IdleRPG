@@ -15,12 +15,7 @@
         currentState?.Enter();
     }
 
-    public void HandleInput() 
-    {
-        currentState?.HandleInput();
-    }
-
-    public void Update()
+    public virtual void Update()
     {
         currentState?.Update();
     }

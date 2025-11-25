@@ -27,8 +27,4 @@
         
     }
 
-    public virtual void HandleInput()
-    {
-        
-    }
 }

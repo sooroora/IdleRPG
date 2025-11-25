@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class IdleState : BaseState
+public class IdleState : BaseState, IControllable
 {
     private float targetIdleTime = 0;
     public float nowIdleTime = 0f;
@@ -20,8 +20,10 @@ public class IdleState : BaseState
         {
             stateMachine.ChangeState(stateMachine.WalkToTarget);
         }
+    }
+    
+    public void HandleInput()
+    {
         
     }
-
-
 }
