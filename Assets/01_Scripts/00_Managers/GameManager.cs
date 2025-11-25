@@ -3,37 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SceneSingletonManager
 {
-    public static GameManager Instance => instance;
-    private static GameManager instance;
-
-    public int CurrentStage => currentStage;
-    private int currentStage;
+    public static GameManager Instance => instance as GameManager;
+    public Stage CurrentStage => currentStage;
+    private Stage currentStage;
 
     public Player Player => player;
     private Player player;
 
-    protected void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
 
-        instance = this;
-        
-        Init();
-    }
-
-    public void Init()
+    protected override void Init()
     {
         player = FindObjectOfType<Player>();
     }
-    
-    private void OnDestroy()
+
+
+    public void StartState()
     {
-        instance = null;
+        
     }
+    // [SerializeField]
+    // IEnumerator FadeInOutAction( Action action, float fadeTime = 1.0f )
+    // {
+    //     
+    // }
 }

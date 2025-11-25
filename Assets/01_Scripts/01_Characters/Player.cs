@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : Character
 {
     private MonsterRayDetector monsterDetector;
-    
-    //public override Transform Target => monsterDetector.CurrentTarget.transform;
-    
+
+    public override Transform Target => monsterDetector.CurrentTarget?.transform;
+
     protected override void Init()
     {
-        stateMachine = new PlayerStateMachine(this);
+        stateMachine = new PlayerStateMachine( this );
+        monsterDetector = GetComponent< MonsterRayDetector >();
     }
 
 
     protected void Update()
     {
         base.Update();
-
     }
-    
-    
 }

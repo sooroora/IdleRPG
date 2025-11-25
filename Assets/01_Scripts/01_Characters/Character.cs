@@ -2,9 +2,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class Character : MonoBehaviour
 {
+    [SerializeField] Animator animator;
+    
     protected CharacterStateMachine stateMachine;
+    protected CharacterStatus status;
     
     public NavMeshAgent Agent => agent;
     private NavMeshAgent agent;
@@ -12,7 +16,6 @@ public abstract class Character : MonoBehaviour
     public virtual Transform Target => target?.transform;
     private Transform target;
     
-    Animator animator;
     public event Action OnHitAction;
     public event Action OnAttackAction;
 
@@ -23,7 +26,7 @@ public abstract class Character : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        status = GetComponent<CharacterStatus>();
     }
 
     private void Start()

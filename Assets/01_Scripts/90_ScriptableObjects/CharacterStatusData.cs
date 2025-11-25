@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[ CreateAssetMenu( fileName = "New PlayerStatusData", menuName = "Scriptable Objects/Player/PlayerStatusData" ) ]
+[ CreateAssetMenu( fileName = "New PlayerStatusData", menuName = "Player/PlayerStatusData" ) ]
 public class CharacterStatusData : ScriptableObject
 {
     [ Header( "Status" ) ]
@@ -19,9 +19,10 @@ public class CharacterStatusData : ScriptableObject
     
     [ Header( "Behaviour" ) ]
     public float moveSpeed = 5.0f;
-
+    
+    [Space(5)]
     public float AttackDelay = 0.5f;
-
+    public float AttackRange = 1.0f;
 
 
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SimplePool : MonoBehaviour
+public class SimplePool : SceneSingletonManager
 {
     // active 된애랑 안 된 애 분리해놓으면 좋음
     List<GameObject> pool;
@@ -10,8 +10,10 @@ public class SimplePool : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private int defaultPoolSize = 50;
 
-    void Awake()
-    {
+ 
+
+    protected override void Init()
+    {  
         pool = new List<GameObject>();
         for (int i = 0; i < defaultPoolSize; i++)
         {
@@ -20,7 +22,6 @@ public class SimplePool : MonoBehaviour
             newObject.SetActive(false);
         }
     }
-
 
     private GameObject CreateGameObject()
     {

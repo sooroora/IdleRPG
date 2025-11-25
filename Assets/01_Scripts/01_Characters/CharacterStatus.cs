@@ -5,25 +5,29 @@ using UnityEngine;
 
 public class CharacterStatus : MonoBehaviour
 {
-    [ SerializeField ] private CharacterStatusData characterStatusData;
+    [ SerializeField ] private CharacterStatusData statusData;
 
-    public float MoveSpeed => characterStatusData.moveSpeed;
-    public float AttackDealy => characterStatusData.AttackDelay;
+    public float MoveSpeed => statusData.moveSpeed;
+    public float AttackDealy => statusData.AttackDelay;
 
     public float NowHealth => health.CurrentValue;
-    public float NowStamina => mana.CurrentValue;
-    
+    public float NowMana => mana.CurrentValue;
+
+    public float Atk => statusData.defaultAtk;
+    public float AttackRange => statusData.AttackRange;
     
     public Condition HealthCondition => health;
     public Condition ManaCondition => mana;
     
     private Condition health;
     private Condition mana;
+    
+    
 
     private void Awake()
     {
-        health = new Condition( characterStatusData.maxHealth, characterStatusData.healthNaturalRecovery, characterStatusData.healthNaturalRecoveryRate );
-        mana = new Condition(characterStatusData.maxMana, characterStatusData.manaNaturalRecovery, characterStatusData.manaNaturalRecoveryRate);
+        health = new Condition( statusData.maxHealth, statusData.healthNaturalRecovery, statusData.healthNaturalRecoveryRate );
+        mana = new Condition(statusData.maxMana, statusData.manaNaturalRecovery, statusData.manaNaturalRecoveryRate);
        
         StartNaturalChangeRoutin( health );
         StartNaturalChangeRoutin( mana );

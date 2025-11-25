@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SingletonManager : MonoBehaviour
+public abstract class SceneSingletonManager : MonoBehaviour
 {
-    private static SingletonManager instance;
-   
+    protected static SceneSingletonManager instance;
+ 
 
     protected virtual void Awake()
     {
@@ -17,7 +17,6 @@ public abstract class SingletonManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
         
         Init();
     }
@@ -27,4 +26,8 @@ public abstract class SingletonManager : MonoBehaviour
     {
     }
 
+    private void OnDestroy()
+    {
+        instance = null;
+    }
 }
