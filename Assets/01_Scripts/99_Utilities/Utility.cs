@@ -15,5 +15,4 @@ public static class Utility
         return newDir.normalized;
     }
     
-
 }

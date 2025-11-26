@@ -21,9 +21,8 @@ public enum EquipType
 
 public enum ConsumableType
 {
-    Hunger,
     Health,
-    Stamina,
+    Mana,
     Poison, 
     SpeedUp,
 }

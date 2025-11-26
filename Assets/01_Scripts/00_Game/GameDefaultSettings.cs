@@ -7,8 +7,7 @@ public static class GameDefaultSettings
     public static Dictionary< ConsumableType, string > ConsumableText = new()
     {
         { ConsumableType.Health, "체력" },
-        { ConsumableType.Hunger, "허기" },
-        { ConsumableType.Stamina, "스테미나" },
+        { ConsumableType.Mana, "마나" },
         { ConsumableType.SpeedUp, "스피드업"},
     };
 }

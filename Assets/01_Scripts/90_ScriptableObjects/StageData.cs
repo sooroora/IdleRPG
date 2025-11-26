@@ -6,5 +6,9 @@ using UnityEngine;
 public class StageData : ScriptableObject
 {
     public Stage stage;
-    public string stageName = "";
+
+    [Header("보상")]
+    public int clearExp;
+    public int clearGold;
+    public List<ItemData> reward;
 }

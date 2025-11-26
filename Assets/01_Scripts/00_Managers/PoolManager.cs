@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public enum PoolType
+{
+    Monster,
+}
+
+public class PoolManager : SceneSingletonManager<PoolManager>
+{
+    [SerializeField] List<SimplePool> pools;
+    Dictionary<PoolType, SimplePool> poolDic;
+
+    protected override void Init()
+    {
+        poolDic = ((PoolType[])Enum.GetValues(typeof(PoolType))).ToDictionary(part => part,
+            part => (SimplePool)null);
+
+        foreach (var pool in pools)
+        {
+            if (Enum.TryParse(pool.gameObject.name, ignoreCase: true, out PoolType poolType))
+            {
+                pool.Init();
+                poolDic[poolType] = pool;
+            }
+        }
+    }
+
+    public GameObject Spawn(PoolType poolType, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        if (poolDic.ContainsKey(poolType))
+        {
+            GameObject newGameObject = poolDic[poolType].GetGameObject();
+            
+            newGameObject.transform.position = position;
+            newGameObject.transform.rotation = rotation;
+            
+            
+            if (parent != null)
+            {
+                newGameObject.transform.SetParent(parent);
+            }
+            
+            return newGameObject;
+        }
+
+        return null;
+    }
+
+    public void DeactivateAllPoolObjects(PoolType poolType)
+    {
+        if (poolDic.ContainsKey(poolType))
+        {
+            poolDic[poolType].DeactivateAllPoolObjects();
+        }
+    }
+}

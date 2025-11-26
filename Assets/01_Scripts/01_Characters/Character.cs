@@ -5,20 +5,17 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Character : MonoBehaviour
 {
+    public Animator Anim => animator;
     [SerializeField] Animator animator;
-    
+
     protected CharacterStateMachine stateMachine;
     protected CharacterStatus status;
-    
+
     public NavMeshAgent Agent => agent;
     private NavMeshAgent agent;
 
-    public virtual Transform Target => target?.transform;
-    private Transform target;
-    
     public event Action OnHitAction;
     public event Action OnAttackAction;
-
 
 
     protected abstract void Init();
@@ -37,6 +34,7 @@ public abstract class Character : MonoBehaviour
     protected void Update()
     {
         stateMachine?.Update();
+        UpdateInternal();
     }
 
     private void FixedUpdate()
@@ -44,10 +42,17 @@ public abstract class Character : MonoBehaviour
         stateMachine?.FixedUpdate();
     }
 
-    protected void SetTarget(Transform _target)
+
+    public void LookAtTarget(Transform target)
     {
-        target = _target;
+        Vector3 direction = target.position - transform.position;
+        direction.y = 0; 
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 
+    protected abstract void UpdateInternal();
 
 }

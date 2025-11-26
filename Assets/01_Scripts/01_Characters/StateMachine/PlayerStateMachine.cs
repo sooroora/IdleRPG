@@ -1,20 +1,17 @@
-﻿public class PlayerStateMachine : CharacterStateMachine
+﻿using UnityEngine;
+
+public class PlayerStateMachine : CharacterStateMachine
 {
+    private Player player;
     
     public PlayerStateMachine(Character _character) : base(_character)
     {
-        
+        player = _character as Player;    
     }
 
-    public override void Update()
+    public override void UpdateInternal()
     {
         
-        if (CurrentState is IControllable c)
-        {
-            c.HandleInput();
-        }
-        
-        base.Update();
     }
 
 }

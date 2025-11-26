@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3848276426345036649}
   - component: {fileID: 5286965693602620389}
   m_Layer: 0
-  m_Name: MonsterWavePoint (3)
+  m_Name: Wave1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 291932804134293173}
   - component: {fileID: 4579344705850598508}
   m_Layer: 0
-  m_Name: MonsterWavePoint (2)
+  m_Name: Wave4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 3527886002274230659}
   - component: {fileID: 3301191202873040135}
   m_Layer: 0
-  m_Name: MonsterWavePoint (1)
+  m_Name: Wave3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7851346236945666301}
   - component: {fileID: 5181141097416556059}
   m_Layer: 0
-  m_Name: MonsterWavePoint
+  m_Name: Wave2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

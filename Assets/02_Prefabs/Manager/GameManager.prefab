@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65765709ba2372a48b2422aaf35e5118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageData:
+  - {fileID: 11400000, guid: 802f9607190aa434ebe30ef354ca1009, type: 2}
+  player: {fileID: 0}
+  playerSpawnPoint: {fileID: 0}

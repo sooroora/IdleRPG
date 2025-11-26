@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScreenManager : SingletonManager
+public class ScreenManager : SingletonManager<ScreenManager>
 {
     [ SerializeField ] private Image fadeImg;
 
@@ -12,20 +12,7 @@ public class ScreenManager : SingletonManager
 
     private void Update()
     {
-        if ( Input.GetKeyDown( KeyCode.Alpha1 ) )
-        {
-            StartFadeIn();
-        }
 
-        if ( Input.GetKeyDown( KeyCode.Alpha2 ) )
-        {
-            StartFadeOut();
-        }
-
-        if ( Input.GetKeyDown( KeyCode.Alpha3 ) )
-        {
-            StartFadeInOut();
-        }
     }
 
     public void StartFadeIn( float duration = 1.0f )

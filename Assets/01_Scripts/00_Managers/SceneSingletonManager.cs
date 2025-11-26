@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SceneSingletonManager : MonoBehaviour
+public abstract class SceneSingletonManager<T> : MonoBehaviour where T : SceneSingletonManager<T>
 {
-    protected static SceneSingletonManager instance;
+    public static T Instance => instance;
+    protected static T instance;
  
 
     protected virtual void Awake()
@@ -16,7 +17,7 @@ public abstract class SceneSingletonManager : MonoBehaviour
             return;
         }
 
-        instance = this;
+        instance = (T)this;
         
         Init();
     }
@@ -28,6 +29,7 @@ public abstract class SceneSingletonManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        //안전하게 null 로 비우기
         instance = null;
     }
 }

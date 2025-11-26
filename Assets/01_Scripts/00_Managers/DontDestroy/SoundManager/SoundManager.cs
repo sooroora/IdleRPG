@@ -78,9 +78,6 @@ public class SoundManager : MonoBehaviour
 
     void ReadSoundClips()
     {
-        // AudioClipGroup[] bgmClips = Resources.LoadAll<AudioClipGroup>("Sounds/BGM");
-        // AudioClipGroup[] sfxClips = Resources.LoadAll<AudioClipGroup>("Sounds/SFX");
-
         SFXTable = ((ESfxName[])Enum.GetValues(typeof(ESfxName))).ToDictionary(part => part,
             part => (AudioClipGroup)null);
 
