@@ -167,9 +167,9 @@ RectTransform:
   - {fileID: 2183216936684235147}
   m_Father: {fileID: 4168598863344977107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.813, y: -310.647}
   m_SizeDelta: {x: 519.623, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6514724996144878404
@@ -230,9 +230,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4168598863344977107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.813, y: -30}
   m_SizeDelta: {x: 742.453, y: 107.100006}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5805368071110904074
@@ -362,9 +362,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4168598863344977107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.813, y: -5}
   m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3874916794409463774
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41f436d46fdf814783f66881dc7cdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultPanel: {fileID: 6476590454782212617}
+  panel: {fileID: 6476590454782212617}
   clearText: {fileID: 9013174044680477304}
   rewardText: {fileID: 8730106036840490936}
   replayButton: {fileID: 5394867465464408048}
@@ -455,10 +455,10 @@ RectTransform:
   - {fileID: 2607439745682497840}
   m_Father: {fileID: 6746844242339742780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 257.3115, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 128.65575, y: -50}
+  m_SizeDelta: {x: 257.3115, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4537372308643756386
 CanvasRenderer:
@@ -572,9 +572,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4168598863344977107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.813, y: -385.647}
   m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6476590454782212617
@@ -596,7 +596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4168598863344977107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -619,7 +619,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 152}
-  m_SizeDelta: {x: 823.626, y: 0}
+  m_SizeDelta: {x: 823.626, y: 390.647}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3328361503824509466
 CanvasRenderer:
@@ -733,10 +733,10 @@ RectTransform:
   - {fileID: 5718707084414156357}
   m_Father: {fileID: 6746844242339742780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 257.3115, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 390.96722, y: -50}
+  m_SizeDelta: {x: 257.3115, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6516199540728024912
 CanvasRenderer:
@@ -986,9 +986,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4168598863344977107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.813, y: -198.8735}
   m_SizeDelta: {x: 563.425, y: 83.547}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2370936028730183649

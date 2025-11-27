@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ResultUI : MonoBehaviour
 {
+    [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI clearText;
     [ SerializeField ] private TextMeshProUGUI rewardText;
     [ SerializeField ] private Button replayButton;
@@ -17,10 +18,11 @@ public class ResultUI : MonoBehaviour
 
     private void Awake()
     {   
-        this.gameObject.SetActive(false);
+        panel.SetActive(false);
         replayButton.onClick.AddListener( ClosePopup );
         nextStageButton.onClick.AddListener( ClosePopup );
     }
+
 
     public void OpenClearPopup(StageData reward)
     {
@@ -31,10 +33,10 @@ public class ResultUI : MonoBehaviour
             "골드 : " + reward.clearGold;
         
         rewardText.gameObject.SetActive( true );
-        
         replayButton.gameObject.SetActive( true );
         nextStageButton.gameObject.SetActive( true );
-        this.gameObject.SetActive( true );
+        
+        panel.SetActive( true );
     }
 
     public void OpenFailPopup()
@@ -45,12 +47,12 @@ public class ResultUI : MonoBehaviour
         
         replayButton.gameObject.SetActive( true );
         nextStageButton.gameObject.SetActive( false );
-        this.gameObject.SetActive( true );
+        panel.SetActive( true );
     }
 
     public void ClosePopup()
     {
         
-        this.gameObject.SetActive( false );
+        panel.SetActive( false );
     }
 }

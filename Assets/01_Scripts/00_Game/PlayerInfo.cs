@@ -18,7 +18,7 @@ public class PlayerInfo
     public int Gold => gold;
     private int gold;
 
-    public int CurrentStage;
+    public int CurrentStage=> currentStage;
     private int currentStage;
 
     public event Action OnAddExpAction;
@@ -75,5 +75,10 @@ public class PlayerInfo
         float required = baseExp * Mathf.Pow( level, curve ) * Mathf.Pow( growth, level - 1 );
 
         return Mathf.RoundToInt( required );
+    }
+
+    public void SetCurrentStage(int stage)
+    {
+        currentStage = stage;
     }
 }

@@ -80,10 +80,13 @@ public class GameManager : SceneSingletonManager<GameManager>
                     Stage spawnedStage = Instantiate(stageData[stageNum].stage);
                     currentStage = spawnedStage;
                     currentStage.Init(stageData[stageNum]);
+                    
                     currentStage.OnClearAction += ClearStage;
                     
                     hudUI.SetStageText( currentStage.StageName );
                     
+                    player.transform.position = playerSpawnPoint.position;
+                    player.Respawn();
                     player.WalkToWavePoint();
                 }
                 
@@ -95,6 +98,7 @@ public class GameManager : SceneSingletonManager<GameManager>
     public void StopCurrentStage()
     {
         PoolManager.Instance.DeactivateAllPoolObjects(PoolType.Monster);
+        Destroy(currentStage.gameObject);
     }
 
 
@@ -116,17 +120,44 @@ public class GameManager : SceneSingletonManager<GameManager>
 
     void StartNextStage()
     {
+        if (stageData.Count <= playerInfo.CurrentStage +1)
+        {
+            // 다음 스테이지가 없음
+            StartStage( playerInfo.CurrentStage );
+            return;
+        }
         
+        playerInfo.SetCurrentStage(playerInfo.CurrentStage + 1);
+        StartStage( playerInfo.CurrentStage );
     }
 
     void ReplayStage()
     {
+        StartStage( playerInfo.CurrentStage );
+    }
+
+    public void SelectStage(int stageNum)
+    {
+        if(stageData.Count <= stageNum || stageNum < 0)
+            return;
         
+        playerInfo.SetCurrentStage(stageNum);
+        StartStage( stageNum );
     }
 
     void ClearStage()
     {
-        resultUI.OpenClearPopup( currentStage.StageData );
+        StartCoroutine(DelayAction(StartNextStage, 1.0f));
+        //StartNextStage();
+        // 얼레 방치형이라 result 있는것보다 없어야한다.
+        //resultUI.OpenClearPopup( currentStage.StageData );
     }
-    
+
+    public void FailStage()
+    {
+        // 죽었을 때 처리 필요
+        
+        StartCoroutine(DelayAction(ReplayStage, 1.0f));
+    }
+
 }

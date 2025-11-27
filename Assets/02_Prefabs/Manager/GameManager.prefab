@@ -46,5 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageData:
   - {fileID: 11400000, guid: 802f9607190aa434ebe30ef354ca1009, type: 2}
+  - {fileID: 11400000, guid: ce0156643e5e2b14b85368abcff7ae77, type: 2}
+  - {fileID: 11400000, guid: 86825b7c42fb48c45834827d37bba506, type: 2}
+  - {fileID: 11400000, guid: ca87e55a52e2c73429d7315c56c3c06b, type: 2}
+  - {fileID: 11400000, guid: b0843e2f537bce842a86bc12c7bcbbbb, type: 2}
+  - {fileID: 11400000, guid: 6950610781ebe9c418d5b3e1599afc0e, type: 2}
   player: {fileID: 0}
   playerSpawnPoint: {fileID: 0}
+  hudUI: {fileID: 0}
+  resultUI: {fileID: 0}

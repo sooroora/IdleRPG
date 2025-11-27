@@ -29,7 +29,7 @@ public class Player : Character
 
     public override void Respawn()
     {
-        
+        status.SetHealth(status.MaxHealth);
     }
 
     protected override void UpdateInternal()
