@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BottomMenuList : MonoBehaviour
+public class BottomMenuUIList : MonoBehaviour
 {
     [SerializeField] List<BottomMenuUI> menuList = new List<BottomMenuUI>();
 
