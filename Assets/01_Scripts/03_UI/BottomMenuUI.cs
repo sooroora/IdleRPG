@@ -7,29 +7,72 @@ using UnityEngine.UI;
 public class BottomMenuUI : MonoBehaviour
 {
    [SerializeField] Button openButton;
-   [SerializeField] RectTransform panel;
-   //[SerializeField] 
+   private RectTransform rectTransform;
+   
+   bool isOpen = false;
+   Coroutine slotToggleCoroutine;
+
+   private float openSpeed = 2.0f;
+
+   public event Action OnOpenAction;
+   public event Action OnCloseAction;
    
    private void Awake()
    {
-      //openButton.onClick.AddListener();
+      rectTransform = GetComponent<RectTransform>();
+      rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -rectTransform.rect.height);
+
+      openButton.onClick.AddListener(Toggle);
+      isOpen = false;
    }
 
+   public void Toggle()
+   {
+      if(isOpen)
+         Close();
+      else
+         Open();
+   }
+   
    public void Open()
    {
+      if(slotToggleCoroutine != null)
+         StopCoroutine(slotToggleCoroutine);
       
+      transform.SetSiblingIndex(transform.parent.childCount - 1);
+      slotToggleCoroutine = StartCoroutine(SlotToggleCoroutine(true));
+      OnOpenAction?.Invoke();
    }
 
    public void Close()
    {
-      
+      if(slotToggleCoroutine != null)
+         StopCoroutine(slotToggleCoroutine);
+      slotToggleCoroutine = StartCoroutine(SlotToggleCoroutine(false));
+      OnCloseAction?.Invoke();
    }
 
-   IEnumerator OpenRoutine()
+   IEnumerator SlotToggleCoroutine(bool _isOpen)
    {
-      while (true)
+      float a = 0;
+      float startPos = rectTransform.anchoredPosition.y;
+      float targePos = _isOpen ? 0 : -rectTransform.rect.height;
+      while (a<1)
       {
-         yield return new WaitForSeconds( 1.0f );         
+         a += Time.deltaTime * openSpeed;
+         
+         float nowY = Mathf.Lerp(startPos, targePos, a);
+         
+         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x,nowY);
+         yield return null;
       }
+      slotToggleCoroutine = null;
+      isOpen = _isOpen;
    }
+
+   public void ForceClose()
+   {
+      
+   }
+   
 }
