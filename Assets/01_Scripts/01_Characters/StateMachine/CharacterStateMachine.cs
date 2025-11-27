@@ -10,6 +10,8 @@ public class CharacterStateMachine : StateMachine
     
     public AttackState Attack;
     public HitState Hit;
+
+    public DieState Die;
     
     
     public CharacterStateMachine(Character _character)
@@ -23,7 +25,7 @@ public class CharacterStateMachine : StateMachine
         
         Attack = CreateState<AttackState>();
         Hit = CreateState<HitState>();
-        
+        Die = CreateState< DieState >();
         
         ChangeState(Idle);
     }

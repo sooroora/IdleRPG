@@ -5,14 +5,26 @@ using UnityEngine;
 public class Stage : MonoBehaviour
 {
     StageData stageData;
+    public StageData StageData => stageData;
     public MonsterWavePoint CurrentWavePoint => currentWavePoint;
+    public string StageName => stageData.name;
     MonsterWavePoint currentWavePoint;
     [ SerializeField ] List< MonsterWavePoint > monsterWavePoint;
 
+    public event Action OnClearAction;
     public int NowWave => nowWave;
     private int nowWave = -1;
-    
-    public void Init(StageData _stageData)
+
+    public bool IsClear
+    {
+        get
+        {
+            if ( monsterWavePoint.Count <= nowWave ) return true;
+            return false;
+        }
+    }
+
+    public void Init( StageData _stageData )
     {
         stageData = _stageData;
         NextWave();
@@ -20,22 +32,25 @@ public class Stage : MonoBehaviour
 
     private void Update()
     {
-        
-
     }
 
-    public bool NextWave()
+    public void NextWave()
     {
         nowWave++;
-        
+
         if ( nowWave >= monsterWavePoint.Count )
         {
             // clear
-            return true;
+            ClearStage();
+            return;
         }
-        
-        currentWavePoint = monsterWavePoint[nowWave];
+
+        currentWavePoint = monsterWavePoint[ nowWave ];
         currentWavePoint.SpawnMonsters();
-        return false;
+    }
+
+    void ClearStage()
+    {
+        OnClearAction?.Invoke();
     }
 }

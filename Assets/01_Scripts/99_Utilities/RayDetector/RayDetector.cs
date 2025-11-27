@@ -14,23 +14,36 @@ public enum EInteractionDetectorShape
 public abstract class RayDetector<T> : MonoBehaviour
 {
     [SerializeField] protected Transform startTransform;
-    [SerializeField] protected float interactionDistance = 1.0f;
-    [SerializeField] protected float interactionShapeRange = 1.0f;
+    [SerializeField] protected float detectDistance = 1.0f;
+    [SerializeField] protected float detectShapeRange = 1.0f;
     [SerializeField] protected EInteractionDetectorShape rayShape;
-    private List<RaycastHit> hitsList = new List<RaycastHit>();
+    protected List<T> currentTargetList = new List<T>();
 
+    public void SetDetectDistance( float distance )
+    {
+        detectDistance = distance;
+    }
 
-    public List<T> CurrentTargets
+    public void SetDetectShapeRange( float range )
+    {
+        detectShapeRange = range;
+    }
+
+    public void SetRayShape( EInteractionDetectorShape rayShape )
+    {
+        this.rayShape = rayShape;
+    }
+    
+    public virtual List<T> CurrentTargets
     {
         get
         {
             UpdateTarget();
-            List<T> result = GetAllTarget();
-            return result;
+            return currentTargetList;
         }
     }
 
-    public T CurrentTarget
+    public virtual T CurrentTarget
     {
         get
         {
@@ -48,7 +61,7 @@ public abstract class RayDetector<T> : MonoBehaviour
 
     private void Awake()
     {
-        hitsList = new List<RaycastHit>();
+        currentTargetList = new List<T>();
     }
 
     protected void UpdateTarget()
@@ -58,15 +71,15 @@ public abstract class RayDetector<T> : MonoBehaviour
         switch (rayShape)
         {
             case EInteractionDetectorShape.Line:
-                hits = Physics.RaycastAll(startTransform.position, startTransform.forward, interactionDistance);
+                hits = Physics.RaycastAll(startTransform.position, startTransform.forward, detectDistance);
                 break;
             case EInteractionDetectorShape.Sphere:
-                hits = Physics.SphereCastAll(startTransform.position, interactionShapeRange, startTransform.forward, interactionDistance);
+                hits = Physics.SphereCastAll(startTransform.position, detectShapeRange, startTransform.forward, detectDistance);
                 break;
 
             case EInteractionDetectorShape.Cube:
-                Vector3 halfExtents = new Vector3(interactionShapeRange, interactionShapeRange, interactionShapeRange);
-                hits = Physics.BoxCastAll(startTransform.position, halfExtents, startTransform.forward, startTransform.rotation, interactionDistance);
+                Vector3 halfExtents = new Vector3(detectShapeRange, detectShapeRange, detectShapeRange);
+                hits = Physics.BoxCastAll(startTransform.position, halfExtents, startTransform.forward, startTransform.rotation, detectDistance);
                 break;
 
             case EInteractionDetectorShape.Capsule:
@@ -88,35 +101,42 @@ public abstract class RayDetector<T> : MonoBehaviour
 
             hitsList.Sort((a, b) => a.distance.CompareTo(b.distance));
 
+            
+            currentTargetList.Clear();
             foreach (RaycastHit hit in hitsList)
             {
                 T target = hit.collider.GetComponent<T>();
                 if (target != null)
                 {
-                    currentTarget = target;
-                    return;
+                    currentTargetList.Add(target);
+                    // currentTarget = target;
+                    // return;
                 }
             }
+            
+            if(currentTargetList.Count > 0)
+                currentTarget = currentTargetList[0];
+            else
+                currentTarget = default(T);
         }
 
-        currentTarget = default(T);
     }
 
 
-    protected List<T> GetAllTarget()
-    {
-        List<T> list = new List<T>();
-
-        foreach (RaycastHit hit in hitsList)
-        {
-            T target = hit.collider.GetComponent<T>();
-            if (target != null)
-            {
-                list.Add(target);
-            }
-        }
-        return list;
-    }
+    // protected List<T> GetAllTarget()
+    // {
+    //     List<T> list = new List<T>();
+    //
+    //     foreach (RaycastHit hit in hitsList)
+    //     {
+    //         T target = hit.collider.GetComponent<T>();
+    //         if (target != null)
+    //         {
+    //             list.Add(target);
+    //         }
+    //     }
+    //     return list;
+    // }
 
 
 #if UNITY_EDITOR
@@ -126,21 +146,22 @@ public abstract class RayDetector<T> : MonoBehaviour
         if (startTransform == null) return;
 
         Gizmos.color = gizmosColor;
+        
 
         switch (rayShape)
         {
             case EInteractionDetectorShape.Line:
-                Gizmos.DrawLine(startTransform.position, startTransform.position + (startTransform.forward * interactionDistance));
+                Gizmos.DrawLine(startTransform.position, startTransform.position + (startTransform.forward * detectDistance));
                 break;
             case EInteractionDetectorShape.Sphere:
-                Gizmos.DrawWireSphere(startTransform.position, interactionShapeRange);
-                Gizmos.DrawWireSphere(startTransform.position + (startTransform.forward * interactionDistance), interactionShapeRange);
+                Gizmos.DrawWireSphere(startTransform.position, detectShapeRange);
+                Gizmos.DrawWireSphere(startTransform.position + (startTransform.forward * detectDistance), detectShapeRange);
                 break;
 
             case EInteractionDetectorShape.Cube:
-                Vector3 halfExtents = new Vector3(interactionShapeRange, interactionShapeRange, interactionShapeRange);
-                Gizmos.matrix = Matrix4x4.TRS(startTransform.position + startTransform.forward * (interactionDistance / 2), startTransform.rotation, Vector3.one);
-                Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2 + new Vector3(0, 0, interactionDistance));
+                Vector3 halfExtents = new Vector3(detectShapeRange, detectShapeRange, detectShapeRange);
+                Gizmos.matrix = Matrix4x4.TRS(startTransform.position + startTransform.forward * (detectDistance / 2), startTransform.rotation, Vector3.one);
+                Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2 + new Vector3(0, 0, detectDistance));
                 break;
         }
     }

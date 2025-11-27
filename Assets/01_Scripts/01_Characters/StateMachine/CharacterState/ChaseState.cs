@@ -2,27 +2,24 @@
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class ChaseState : WalkState
 {
-
     Character target;
     private float targetMaxDistance;
 
-    private float searchTargetDelay = 2.0f;
     private float nowSearchTargetDelay;
 
-    private float attackRange = 0.3f;
 
-    public void SetTarget(Character _target, float _targetMaxDistance = 1f)
+    public void SetTarget( Character _target, float _targetMaxDistance = 1f )
     {
         target = _target;
         targetMaxDistance = _targetMaxDistance;
-        nowSearchTargetDelay = searchTargetDelay;
     }
-    
+
     protected override void EnterInternal()
     {
         base.EnterInternal();
@@ -31,50 +28,62 @@ public class ChaseState : WalkState
 
     public override void Update()
     {
+        float dis = Vector3.Distance( stateMachine.Character.gameObject.transform.position, target.transform.position );
 
-        float dis = Vector3.Distance(stateMachine.Character.Agent.destination, target.transform.position);
-        
         // if(stateMachine.Character.gameObject.name=="1")
         //     Debug.Log(dis);
-        
-        if (dis <= attackRange)
+
+        if ( dis <= stateMachine.Character.Status.AttackRange )
         {
-            stateMachine.Attack.SetTarget(target);
-            stateMachine.ChangeState(stateMachine.Attack);
+            stateMachine.Attack.SetTarget( target );
+            stateMachine.ChangeState( stateMachine.Attack );
             return;
         }
 
 
-        if (nowSearchTargetDelay < 0)
+        if ( nowSearchTargetDelay < 0 )
         {
-            if (dis > 2.0f)
+            if ( dis >= stateMachine.Character.Status.RedetectRange )
             {
                 SetDestination();
             }
 
-            nowSearchTargetDelay = searchTargetDelay;
             return;
         }
-        
-        nowSearchTargetDelay -= Time.deltaTime;
 
+        nowSearchTargetDelay -= Time.deltaTime;
     }
 
     void SetDestination()
     {
-        Vector3 randomPos = target.transform.position + Utility.GetRandomDirection() * Random.Range(0.2f,
-            attackRange);
         
-        if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, targetMaxDistance, NavMesh.AllAreas))
+        
+        
+        Vector3 dirToTarget = (target.transform.position - stateMachine.Character.transform.position).normalized;
+
+        float angleOffset = Random.Range(-5f, 5f);
+        Quaternion rot = Quaternion.Euler(0f, angleOffset, 0f);
+        Vector3 offsetDir = rot * dirToTarget;
+
+        float dist = Random.Range(
+            stateMachine.Character.Status.AttackRange * 0.7f,
+            stateMachine.Character.Status.AttackRange
+        );
+
+        Vector3 randomPos = target.transform.position - offsetDir * dist;
+        
+        // Vector3 randomPos = target.transform.position + Utility.GetRandomDirection()
+        //   * Random.Range( stateMachine.Character.Status.AttackRange * 0.7f, stateMachine.Character.Status.AttackRange );
+
+        if ( NavMesh.SamplePosition( randomPos, out NavMeshHit hit, targetMaxDistance, NavMesh.AllAreas ) )
         {
-            stateMachine.Character.Agent.SetDestination(hit.position);
+            stateMachine.Character.Agent.SetDestination( hit.position );
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.Idle);
+            stateMachine.ChangeState( stateMachine.Idle );
         }
-       
+
+        nowSearchTargetDelay = stateMachine.Character.Status.RedetectTime;
     }
-
-
 }

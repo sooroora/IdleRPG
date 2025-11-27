@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName ="BaseObjectData", menuName = "Game/BaseObjectData")]
 public class BaseObjectData : ScriptableObject
 {
     [Header("Info")]

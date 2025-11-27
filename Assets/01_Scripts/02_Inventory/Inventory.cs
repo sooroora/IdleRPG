@@ -54,7 +54,7 @@ public class Inventory
             }
         }
 
-        if ( items.Count >= GameDefaultSettings.InventoryMaxSlot ) return false;
+        if ( items.Count >= GameCommon.InventoryMaxSlot ) return false;
 
         items.Add( item );
         remainCount = 0;

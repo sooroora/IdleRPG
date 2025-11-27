@@ -18,18 +18,51 @@ public class GameManager : SceneSingletonManager<GameManager>
     [SerializeField]private Player player;
     [SerializeField] private Transform playerSpawnPoint;
 
-
+    
+    // ui 묶어야
+    [SerializeField] HudUI hudUI;
+    [SerializeField] ResultUI resultUI;
+    
     protected override void Init()
     {
+        Time.timeScale = 2.0f;
+        
         if(player == null)
             player = FindObjectOfType<Player>();
         
+        playerInfo = new PlayerInfo();
         
+        hudUI.SetExpBar( playerInfo.NowExp, playerInfo.RequireExp );
+        hudUI.SetGoldText(playerInfo.Gold);
+        hudUI.SetStageText( "" );
+        hudUI.SetLevelText(playerInfo.Level);
+
+        resultUI.ReplayButton.onClick.AddListener(ReplayStage);
+        resultUI.NextStageButton.onClick.AddListener(StartNextStage);
+        
+        playerInfo.OnLevelUpAction += ()=>
+        {
+            hudUI.SetLevelText( playerInfo.Level );
+        };
+
+        playerInfo.OnAddExpAction += () =>
+        {
+            hudUI.StartSetExpBarRoutine( playerInfo.NowExp, playerInfo.RequireExp );
+        };
+
+        playerInfo.OnAddGoldAction += () =>
+        {
+            hudUI.StartSetGoldTextRoutine( playerInfo.Gold );
+        };
+
     }
 
     public void Start()
     {
-        StartStage(0);
+        StartCoroutine(DelayAction(  () =>
+        {
+            StartStage( playerInfo.CurrentStage );
+        }, 1.0f ));
     }
 
     public void StartStage(int stageNum)
@@ -47,6 +80,10 @@ public class GameManager : SceneSingletonManager<GameManager>
                     Stage spawnedStage = Instantiate(stageData[stageNum].stage);
                     currentStage = spawnedStage;
                     currentStage.Init(stageData[stageNum]);
+                    currentStage.OnClearAction += ClearStage;
+                    
+                    hudUI.SetStageText( currentStage.StageName );
+                    
                     player.WalkToWavePoint();
                 }
                 
@@ -60,5 +97,36 @@ public class GameManager : SceneSingletonManager<GameManager>
         PoolManager.Instance.DeactivateAllPoolObjects(PoolType.Monster);
     }
 
+
+    IEnumerator DelayAction( Action action, float delay )
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
+    
+    public void AddGold(int gold)
+    {
+        playerInfo.AddGold( gold );
+    }
+
+    public void AddExp( int exp )
+    {
+        playerInfo.AddExp( exp );
+    }
+
+    void StartNextStage()
+    {
+        
+    }
+
+    void ReplayStage()
+    {
+        
+    }
+
+    void ClearStage()
+    {
+        resultUI.OpenClearPopup( currentStage.StageData );
+    }
     
 }

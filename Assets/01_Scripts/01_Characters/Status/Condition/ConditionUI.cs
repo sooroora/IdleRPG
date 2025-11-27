@@ -5,7 +5,7 @@ public class ConditionUI : MonoBehaviour
 {
     private Condition targetCondition;
 
-    public Image uiBar;
+    public Transform uiBar;
 
     float targetScale;
     float nowScale;
@@ -22,8 +22,7 @@ public class ConditionUI : MonoBehaviour
         {
             targetScale = targetCondition.GetPercentage();
             nowScale = Mathf.Lerp(nowScale, targetScale, Time.deltaTime * 5.0f);
-            uiBar.rectTransform.localScale = new Vector3(nowScale, 1, 1);
-            
+            uiBar.transform.localScale = new Vector3(nowScale, 1, 1);
         }
 
     }

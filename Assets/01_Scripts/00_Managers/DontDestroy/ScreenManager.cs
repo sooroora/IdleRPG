@@ -38,6 +38,7 @@ public class ScreenManager : SingletonManager<ScreenManager>
 
     IEnumerator FadeInRoutine( float duration = 1.0f )
     {
+        fadeImg.gameObject.SetActive( true );
         fadeImg.color = new Color( 0, 0, 0, 1f );
         while ( fadeImg.color.a > 0f )
         {
@@ -45,12 +46,14 @@ public class ScreenManager : SingletonManager<ScreenManager>
             fadeImg.color = new Color( 0, 0, 0, a );
             yield return null;
         }
-
+        
+        fadeImg.gameObject.SetActive( false );
         nowFadeRoutine = null;
     }
 
     IEnumerator FadeOutRoutine( float duration = 1.0f )
     {
+        fadeImg.gameObject.SetActive( true );
         fadeImg.color = new Color( 0, 0, 0, 0f );
         while ( fadeImg.color.a < 1f )
         {

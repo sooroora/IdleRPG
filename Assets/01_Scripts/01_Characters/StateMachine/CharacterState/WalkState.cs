@@ -10,5 +10,7 @@
     protected override void ExitInternal()
     {
         stateMachine.Character.Anim.SetBool("IsWalking", false);
+        stateMachine.Character.Agent.isStopped = true;
+        stateMachine.Character.Agent.updateRotation = false;
     }
 }

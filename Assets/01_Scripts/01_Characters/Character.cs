@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField] Animator animator;
 
     protected CharacterStateMachine stateMachine;
+
+    public CharacterStatus Status => status; 
     protected CharacterStatus status;
 
     public NavMeshAgent Agent => agent;
@@ -16,6 +19,7 @@ public abstract class Character : MonoBehaviour
 
     public event Action OnHitAction;
     public event Action OnAttackAction;
+    public event Action OnDieAction;
 
 
     protected abstract void Init();
@@ -23,12 +27,16 @@ public abstract class Character : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+
         status = GetComponent<CharacterStatus>();
+        agent.speed = status.MoveSpeed;
+        
+        Init();
     }
+
 
     private void Start()
     {
-        Init();
     }
 
     protected void Update()
@@ -53,6 +61,38 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public void TakeDamage( int damage )
+    {
+        status.AddHealth(-damage);
+        OnHitAction?.Invoke();
+
+        if ( status.NowHealth <= 0 )
+            Die();
+    }
+
+    public virtual void Attack()
+    {
+    }
+
+    public void Die()
+    {
+        OnDieAction?.Invoke();
+    }
+
+
+    public abstract void Respawn();
+    
+
     protected abstract void UpdateInternal();
 
+    
+    public Coroutine StartDelayAction(Action action, float delay)
+    {
+        return StartCoroutine(DelayActionRoutine(action, delay));
+    }
+    IEnumerator DelayActionRoutine(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
 }
