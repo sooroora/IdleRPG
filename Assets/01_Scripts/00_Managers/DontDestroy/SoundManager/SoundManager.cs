@@ -4,15 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SingletonManager<SoundManager>
 {
-    private static SoundManager instance;
-    public static SoundManager Instance
-    {
-        get => instance;
-        private set => instance = value;
-    }
-
     // 리소스에 넣지 않는 방식으로 변경
     [SerializeField] private AudioClipGroup[] sfxGroupAsset;
     [SerializeField] private AudioClipGroup[] bgmGroupAsset;
@@ -47,33 +40,21 @@ public class SoundManager : MonoBehaviour
     private List<AudioSource> sfxAudioSources;
 
 
-    // 리소스에서 옮기지 않는 방법으로 변경 필요
-    private void Awake()
+    protected override void Init()
     {
-        if (instance == null)
+        bgmAudioSource = gameObject.AddComponent<AudioSource>();
+        sfxAudioSources = new List<AudioSource>();
+
+        // 일단 풀에 10개 넣어
+        for (int i = 0; i < 10; ++i)
         {
-            gameObject.name = "SoundManager";
-            DontDestroyOnLoad(gameObject);
-            instance = this;
-
-            bgmAudioSource = gameObject.AddComponent<AudioSource>();
-            sfxAudioSources = new List<AudioSource>();
-
-            // 일단 풀에 10개 넣어
-            for (int i = 0; i < 10; ++i)
-            {
-                AudioSource aSource = gameObject.AddComponent<AudioSource>();
-                aSource.playOnAwake = false;
-                sfxAudioSources.Add(aSource);
-            }
-
-            instance.ReadSoundClips();
-            SetSavedVolume();
+            AudioSource aSource = gameObject.AddComponent<AudioSource>();
+            aSource.playOnAwake = false;
+            sfxAudioSources.Add(aSource);
         }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+
+        ReadSoundClips();
+        SetSavedVolume();
     }
 
     void ReadSoundClips()
@@ -99,10 +80,6 @@ public class SoundManager : MonoBehaviour
                 SFXTable[sfxName] = sfxGroupAsset[i];
             }
         }
-
-        // 오마갓 C# 버전이 안맞대!!!!!!!!
-        // 프로젝트 세팅을 바꿔야 한대
-        //Enum.GetValues<SoundName>().ToDictionary(part => part, part => null);
     }
 
 
