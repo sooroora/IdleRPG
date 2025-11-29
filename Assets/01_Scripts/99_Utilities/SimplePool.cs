@@ -90,9 +90,9 @@ public class SimplePool : MonoBehaviour
 
     public void DeactivateAllPoolObjects()
     {
-        foreach (PoolObject poolObject in activatedObjectsPool)
+        for (int i = activatedObjectsPool.Count - 1; i >= 0; i--)
         {
-            poolObject.gameObject.SetActive(false);
+            activatedObjectsPool[i].gameObject.SetActive(false);
         }
     }
 
