@@ -7,6 +7,7 @@ using UnityEngine;
 public enum PoolType
 {
     Monster,
+    ItemSlot,
 }
 
 public class PoolManager : SceneSingletonManager<PoolManager>
@@ -47,6 +48,16 @@ public class PoolManager : SceneSingletonManager<PoolManager>
             return newGameObject;
         }
 
+        return null;
+    }
+
+    public GameObject Spawn(PoolType poolType)
+    {
+        if (poolDic.ContainsKey(poolType))
+        {
+            GameObject newGameObject = poolDic[poolType].GetGameObject();
+            return newGameObject;
+        }
         return null;
     }
 

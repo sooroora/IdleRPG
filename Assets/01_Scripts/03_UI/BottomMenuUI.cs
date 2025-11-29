@@ -24,6 +24,17 @@ public class BottomMenuUI : MonoBehaviour
 
       openButton.onClick.AddListener(Toggle);
       isOpen = false;
+      
+      Init();
+      
+   }
+   
+   /// <summary>
+   /// Awake 에 작동
+   /// </summary>
+   public virtual void Init()
+   {
+      
    }
 
    public void Toggle()

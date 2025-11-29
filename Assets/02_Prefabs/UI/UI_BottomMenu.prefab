@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6444778603081412918}
   - component: {fileID: 7322554414026668543}
   m_Layer: 5
-  m_Name: Img_pannel
+  m_Name: Img_panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 354887439451355506}
   - component: {fileID: 9124629226102207930}
   m_Layer: 5
-  m_Name: UI_Inventory
+  m_Name: UI_BottomMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

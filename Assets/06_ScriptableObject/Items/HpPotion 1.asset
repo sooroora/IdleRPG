@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18865f5dad704744c9c4dc26220112bc, type: 3}
+  m_Name: HpPotion 1
+  m_EditorClassIdentifier: 
+  displayName: "\uBBF8\uC57D\uD55C \uD68C\uBCF5 \uD3EC\uC158"
+  description: "\uC57D\uAC04\uC758 HP\uAC00 \uD68C\uBCF5\uB41C\uB2E4"
+  icon: {fileID: 21300000, guid: f8709e96719ba354dae75c1937cbda72, type: 3}
+  dropPrefab: {fileID: 0}
+  canStack: 1
+  maxCountAmount: 99
+  consumables:
+  - consumableType: 0
+    amount: 50
+    duration: 0

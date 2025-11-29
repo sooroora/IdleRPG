@@ -50,21 +50,21 @@ public class Item
         return count;
     }
 
-    // public void Use( Player player )
-    // {
-    //     if ( count > 0 )
-    //     {
-    //         count -= 1;
-    //         UseInternal( player );
-    //         OnUse?.Invoke( this );
-    //     }
-    //     
-    // }
-    //
-    // protected virtual void UseInternal( Player player )
-    // {
-    // }
-    //
+    public void Use( Player player )
+    {
+        if ( count > 0 )
+        {
+            count -= 1;
+            UseInternal( player );
+            OnUse?.Invoke( this );
+        }
+        
+    }
+    
+    protected virtual void UseInternal( Player player )
+    {
+    }
+    
     // public void Throw(Player player)
     // {
     //     if ( count > 0 )
