@@ -9,34 +9,31 @@ public class BottomMenuUIList : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < menuList.Count; i++)
+        foreach (BottomMenuUI menu in menuList)
         {
-            int ii = i;
-            for (int j = 0; j < menuList.Count; j++)
+            foreach (BottomMenuUI other in menuList)
             {
-                if (i != j)
+                if (menu != other)
                 {
-                    int jj = j;
-                    menuList[ii].OnOpenAction += () =>
+                    menu.OnOpenAction += () =>
                     {
-
-                        menuList[jj].ForceClose();
+                        other.ForceClose();
                     };
                 }
             }
 
-            menuList[ii].OnOpenAction += () =>
+            menu.OnOpenAction += () =>
             {
                 CameraManager.Instance.SetBottomUIAim();
             };
 
-            menuList[ii].OnCloseAction += () =>
+            menu.OnCloseAction += () =>
             {
                 CameraManager.Instance.SetDefaultAim();
             };
+
         }
+        
     }
-    
-    
 
 }

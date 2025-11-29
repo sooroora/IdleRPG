@@ -39,7 +39,7 @@ public class BottomMenuUI : MonoBehaviour
       if(slotToggleCoroutine != null)
          StopCoroutine(slotToggleCoroutine);
       
-      transform.SetSiblingIndex(transform.parent.childCount - 1);
+      transform.SetSiblingIndex(0);
       slotToggleCoroutine = StartCoroutine(SlotToggleCoroutine(true));
       OnOpenAction?.Invoke();
    }
@@ -72,7 +72,8 @@ public class BottomMenuUI : MonoBehaviour
 
    public void ForceClose()
    {
-      
+      rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x,-rectTransform.rect.height);
+      isOpen = false;
    }
    
 }
