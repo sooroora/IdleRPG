@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class InventoryUI : BottomMenuUI, IItemSlotList
 {
-    [Header("Inventory")]
+    [ Header( "Inventory" ) ]
     [ SerializeField ] protected ItemSlotUI itemSlotUIPrefab;
+
     [ SerializeField ] protected Transform itemSlotContent;
-    [ SerializeField ] protected private ItemInfoUI itemInfoUI;
+    [ SerializeField ] protected private InventoryItemInfoUI itemInfoUI;
 
 
     protected List< ItemSlotUI > itemSlots;
@@ -21,17 +23,19 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
         itemSlots = new List< ItemSlotUI >();
 
 
-        for (int i = 0; i < GameCommon.InventoryMaxSlot; i++)
+        for ( int i = 0; i < GameCommon.InventoryMaxSlot; i++ )
         {
-            ItemSlotUI newSlot = Instantiate(itemSlotUIPrefab);
-            newSlot.transform.SetParent( itemSlotContent );
-            itemSlots.Add(newSlot);
+            ItemSlotUI newSlot = Instantiate( itemSlotUIPrefab, itemSlotContent );
+            itemSlots.Add( newSlot );
         }
-        
-        itemInfoUI.OnItemButtonAction += UpdateItemSlots;
-        
- 
 
+        itemInfoUI.OnItemButtonAction += UpdateItemSlots;
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.PlayerInfo.Inventory.OnAddItemAction += UpdateItemSlots;
+        itemInfoUI.HideInfo();
     }
 
     private void OnEnable()
@@ -43,9 +47,9 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
     public void OpenInventory()
     {
         Inventory inventory = GameManager.Instance.PlayerInfo.Inventory;
-        
+
         if ( inventory == null ) return;
-        
+
         for ( int i = 0; i < itemSlots.Count; ++i )
         {
             if ( inventory.Items.Count > i )
@@ -54,10 +58,10 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
             }
             else
             {
-                itemSlots[i].SetItemData(null);
+                itemSlots[ i ].SetItemData( null );
             }
-            
-            itemSlots[i].OnDeselect();
+
+            itemSlots[ i ].OnDeselect();
         }
     }
 
@@ -68,26 +72,25 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
             nowSelectedSlot.OnDeselect();
         }
 
-        nowSelectedSlot = slot;
-
-        if ( slot.Item != null )
+        if ( slot.Item == null )
+        {
+            itemInfoUI.HideInfo();
+        }
+        else
         {
             itemInfoUI.ShowInfo( slot.Item );
         }
-    }
 
-    public void DeselectItemSlot(ItemSlotUI slot)
-    {
-        
+        nowSelectedSlot = slot;
     }
 
     public void UpdateItemSlots()
     {
         Inventory inventory = GameManager.Instance.PlayerInfo.Inventory;
-        
+
         if ( inventory == null ) return;
-        
-        for ( int i = 0; i < itemSlots.Count; ++i ) 
+
+        for ( int i = 0; i < itemSlots.Count; ++i )
         {
             if ( inventory.Items.Count > i )
             {
@@ -95,13 +98,16 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
             }
             else
             {
-                itemSlots[i].SetItemData(null);
+                itemSlots[ i ].SetItemData( null );
             }
         }
-        
-        if ( nowSelectedSlot.Item == null )
+
+        if ( nowSelectedSlot != null )
         {
-            itemInfoUI.HideInfo();
+            if ( nowSelectedSlot.Item == null )
+            {
+                itemInfoUI.HideInfo();
+            }
         }
     }
 }

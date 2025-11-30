@@ -31,14 +31,13 @@ public class ItemManager : SceneSingletonManager<ItemManager>
         }
         return null;
     }
-    
 
-    // public GameObject SpawnDropItem(string itemName, Vector3 position)
-    // {
-    //     ItemData itemData = GetItemData(itemName);
-    //     if(itemData == null) return null;
-    //     if(itemData.DropPrefab == null) return null;
-    //     
-    //     return Instantiate(itemData.DropPrefab, position, Quaternion.identity);
-    // }
+    public Item NewItem( string itemName )
+    {
+        if ( itemDic.ContainsKey( itemName ) )
+        {
+            return itemDic[ itemName ].NewItem();
+        }
+        return null;
+    }
 }

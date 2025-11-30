@@ -6,6 +6,7 @@ using UnityEngine;
 public class BottomMenuUIList : MonoBehaviour
 {
     [SerializeField] List<BottomMenuUI> menuList = new List<BottomMenuUI>();
+    [ SerializeField ] private Transform playerStatusUI;
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class BottomMenuUIList : MonoBehaviour
             menu.OnOpenAction += () =>
             {
                 CameraManager.Instance.SetBottomUIAim();
+                playerStatusUI.SetParent(menu.transform);
+                playerStatusUI.localPosition = new Vector3( 0, menu.RectTransform.rect.height + 85, 0 ); 
             };
 
             menu.OnCloseAction += () =>

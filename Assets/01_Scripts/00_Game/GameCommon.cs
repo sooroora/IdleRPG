@@ -6,8 +6,11 @@ public static class GameCommon
 
     public static Dictionary< ConsumableType, string > ConsumableText = new()
     {
-        { ConsumableType.Health, "체력" },
-        { ConsumableType.Mana, "마나" },
-        { ConsumableType.SpeedUp, "스피드업"},
+        { ConsumableType.HealthRestore, "체력 회복" },
+        { ConsumableType.SpeedUp, "스피드 증가"},
+        { ConsumableType.AttackUp, "공격력 증가"},
+        
     };
+
+    public const float ResellRate = 0.1f;
 }

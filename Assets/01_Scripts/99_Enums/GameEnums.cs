@@ -15,15 +15,13 @@ public enum EquipType
     Armor,
     Shoes,
     Weapon,
-    Ax,
-    Pickax,
+    Belt,
 }
 
 public enum ConsumableType
 {
-    Health,
-    Mana,
-    Poison, 
+    HealthRestore,
     SpeedUp,
+    AttackUp,
 }
 

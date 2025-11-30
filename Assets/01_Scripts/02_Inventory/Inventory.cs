@@ -7,29 +7,28 @@ public class Inventory
     public List< Item > Items => items;
     private List< Item > items;
 
+    public event Action OnAddItemAction ;
 
     public Inventory()
     {
         items = new List< Item >();
     }
 
-    public bool AddItem( Item item, out int remainCount )
+    public bool AddItem( Item item)
     {
+        OnAddItemAction?.Invoke();
         
-        List< Item > findItems 
-            
+        List< Item > findItems
             = items.FindAll( ( i ) =>
-        {
-            if ( item.Name == i.Name ) return true;
-            return false;
-        } );
+            {
+                if ( item.Name == i.Name ) return true;
+                return false;
+            } );
 
         item.OnUse += OnItemUse;
-        item.OnThrow += OnItemThrow;
         
-        
-        remainCount = item.Count;
-        
+        int remainCount = item.Count;
+
         if ( findItems.Count > 0 )
         {
             if ( item.CanStack )
@@ -57,18 +56,32 @@ public class Inventory
         if ( items.Count >= GameCommon.InventoryMaxSlot ) return false;
 
         items.Add( item );
-        remainCount = 0;
         return true;
     }
 
-    public void RemoveItem( Item item )
+    void RemoveItem( Item item )
     {
         if ( items.Contains( item ) )
         {
             item.OnUse -= OnItemUse;
-            item.OnThrow -= OnItemThrow;
-            
+
             items.Remove( item );
+        }
+    }
+
+    public void SellItem( Item item )
+    {
+        if ( items.Contains( item ) )
+        {
+            if ( item.CanStack )
+            {
+                if ( item.AddCount( -1 ) <= 0 )
+                    RemoveItem( item );
+            }
+            else
+            {
+                RemoveItem( item );
+            }
         }
     }
 
@@ -81,9 +94,9 @@ public class Inventory
         }
     }
 
-    void OnItemThrow(Item item)
+    void OnItemThrow( Item item )
     {
-        if (item.Count <= 0)
+        if ( item.Count <= 0 )
         {
             RemoveItem( item );
         }

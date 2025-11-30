@@ -8,6 +8,7 @@ public class BottomMenuUI : MonoBehaviour
 {
    [SerializeField] Button openButton;
    private RectTransform rectTransform;
+   public RectTransform RectTransform=> rectTransform;
    
    bool isOpen = false;
    Coroutine slotToggleCoroutine;

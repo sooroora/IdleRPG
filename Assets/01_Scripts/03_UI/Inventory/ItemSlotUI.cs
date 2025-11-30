@@ -18,7 +18,6 @@ public class ItemSlotUI : MonoBehaviour
     private IItemSlotList itemSlotList;
     private Button itemSlotButton;
     
-    //private bool isSelected = false;
 
     private void Awake()
     {
@@ -70,9 +69,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void OnSelect()
     {
-        //isSelected = true;
         slotImg.color = selectedColor;
-
         itemSlotList.SelectItemSlot( this );
     }
 
@@ -85,5 +82,10 @@ public class ItemSlotUI : MonoBehaviour
     {
         itemIcon.enabled = false;
         textItemCount.text = "";
+    }
+
+    public void HideCountText()
+    {
+        textItemCount.gameObject.SetActive(false);
     }
 }

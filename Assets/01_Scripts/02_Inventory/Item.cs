@@ -17,6 +17,9 @@ public class Item
     public int Count => count;
     public bool CanStack => canStack;
     public int MaxCount => maxCount;
+    
+    public int Price => price;
+    
 
     private string name;
     private string displayName;
@@ -26,8 +29,9 @@ public class Item
     private bool canStack;
     private int maxCount;
 
+    private int price;
+
     public event Action< Item > OnUse;
-    public event Action<Item> OnThrow;
 
     public Item( ItemData itemData, int _count = 1 )
     {
@@ -37,6 +41,7 @@ public class Item
         canStack = itemData.CanStack;
         maxCount = itemData.MaxCountAmount;
         count = _count;
+        price = itemData.Price;
     }
 
     public int AddCount( int amount )
