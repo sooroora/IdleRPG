@@ -12,6 +12,7 @@ public class InventoryItemInfoUI : ItemInfoUI
     [ SerializeField ] private Button sellButton;
     [ SerializeField ] private Button equipButton;
     [ SerializeField ] private Button unequipButton;
+    
 
     void Awake()
     {
@@ -20,10 +21,7 @@ public class InventoryItemInfoUI : ItemInfoUI
         equipButton.onClick.AddListener( OnClickEquipButton );
         unequipButton.onClick.AddListener( OnClickUnequipButton );
 
-        useButton.gameObject.SetActive( false );
-        sellButton.gameObject.SetActive( false );
-        equipButton.gameObject.SetActive( false );
-        unequipButton.gameObject.SetActive( false );
+        HideAllButtons();
     }
 
     protected override void ShowInfoInternal()
@@ -31,23 +29,53 @@ public class InventoryItemInfoUI : ItemInfoUI
         if ( nowItem == null ) return;
         
         priceText.text = ( nowItem.Price * GameCommon.ResellRate ).ToString();
-        
-        
+
+        HideAllButtons();
+        sellButton.gameObject.SetActive(true);
+        if ( nowItem is ConsumableItem consumableItem )
+        {
+            useButton.gameObject.SetActive( true );    
+        }
+        else if ( nowItem is EquipItem equipItem )
+        {
+            if(equipItem.IsEquip)
+                unequipButton.gameObject.SetActive( true );
+            else
+            {
+                equipButton.gameObject.SetActive( true );
+            }
+        }
+    }
+
+    public void HideAllButtons()
+    {
+        useButton.gameObject.SetActive( false );
+        sellButton.gameObject.SetActive( false );
+        equipButton.gameObject.SetActive( false );
+        unequipButton.gameObject.SetActive( false );
     }
 
     public void OnClickUseButton()
     {
         if ( nowItem == null ) return;
+        
+        nowItem.Use(GameManager.Instance.Player);
+        
+        InvokeOnItemButtonAction();
     }
 
     public void OnClickSellButton()
     {
         if ( nowItem == null ) return;
+        
+        InvokeOnItemButtonAction();
     }
 
     public void OnClickEquipButton()
     {
         if ( nowItem == null ) return;
+        
+        InvokeOnItemButtonAction();
     }
 
     public void OnClickUnequipButton()

@@ -16,7 +16,6 @@ public class Inventory
 
     public bool AddItem( Item item)
     {
-        OnAddItemAction?.Invoke();
         
         List< Item > findItems
             = items.FindAll( ( i ) =>
@@ -49,14 +48,20 @@ public class Inventory
                 }
 
                 if ( remainCount == 0 )
+                {
+                    OnAddItemAction?.Invoke();
                     return true;
+                }
             }
         }
 
         if ( items.Count >= GameCommon.InventoryMaxSlot ) return false;
 
         items.Add( item );
+        
+        OnAddItemAction?.Invoke();
         return true;
+        
     }
 
     void RemoveItem( Item item )

@@ -38,7 +38,7 @@ public class ShopItemInfoUI : ItemInfoUI
         if ( GameManager.Instance.PlayerInfo.Gold >= nowItem.Price )
         {
             Item newItem = ItemManager.Instance.NewItem( nowItem.Name );
-
+            
             if ( GameManager.Instance.PlayerInfo.Inventory.AddItem( newItem ) )
             {
                 GameManager.Instance.PlayerInfo.AddGold( -nowItem.Price );

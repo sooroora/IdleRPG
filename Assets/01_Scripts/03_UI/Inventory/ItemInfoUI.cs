@@ -57,69 +57,6 @@ public class ItemInfoUI : MonoBehaviour
             itemEffectText.text = effectText;
         }
         
-
-        // if ( item is EquipItem equipItem )
-        // {
-        //     btnUse.gameObject.SetActive( false );
-        //
-        //     if ( equipItem.IsEquip )
-        //     {
-        //         btnEquip.gameObject.SetActive( false );
-        //         btnUnequip.gameObject.SetActive( true );
-        //     }
-        //     else
-        //     {
-        //         btnEquip.gameObject.SetActive( true );
-        //         btnUnequip.gameObject.SetActive( false );
-        //     }
-        //
-        //     foreach ( InventoryItemInfoText effectInfoText in effectInfoTexts )
-        //     {
-        //         effectInfoText.HideInfoText();
-        //     }
-        //
-        //     effectInfoTexts[ 0 ]?.ShowInfoText( "공격력", equipItem.Atk.ToString() );
-        // }
-        // else
-        // {
-        //     btnUnequip.gameObject.SetActive( false );
-        //     btnEquip.gameObject.SetActive( false );
-        //
-        //     if ( item is ConsumableItem consumableItem )
-        //     {
-        //         btnUse.gameObject.SetActive( true );
-        //
-        //         ConsumableEffect[] consumable = consumableItem.Consumable;
-        //         for ( int i = 0; i < effectInfoTexts.Length; ++i )
-        //         {
-        //             if ( consumable.Length > i )
-        //             {
-        //                 try
-        //                 {
-        //                     //키 없을 수도 있음~~
-        //                     // 템창에 독있는건 안보여줄거임
-        //                     effectInfoTexts[ i ].ShowInfoText( GameCommon.ConsumableText[ consumableItem.Consumable[ i ].consumableType ],
-        //                                                        consumableItem.Consumable[ i ].amount.ToString() );
-        //                 }
-        //                 catch
-        //                 {
-        //                     effectInfoTexts[ i ].HideInfoText();    
-        //                 }
-        //             }
-        //             else
-        //             {
-        //                 effectInfoTexts[ i ].HideInfoText();
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         for ( int i = 0; i < effectInfoTexts.Length; ++i )
-        //         {
-        //             effectInfoTexts[i].HideInfoText();
-        //         }
-        //     }
-        // }
         ShowInfoInternal();
     }
 
@@ -146,26 +83,6 @@ public class ItemInfoUI : MonoBehaviour
         
     }
 
-    public void OnClickEquipItem()
-    {
-        if ( nowItem == null ) return;
-
-        if ( nowItem is EquipItem equipItem )
-        {
-            //equipItem.Equip( GameManager.Instance.Player );
-        }
-        
-    }
-
-    public void OnClickUnequipItem()
-    {
-        if ( nowItem == null ) return;
-        
-        if ( nowItem is EquipItem equipItem )
-        {
-            //equipItem.Equip( GameManager.Instance.Player );
-        }
-    }
 
     protected void InvokeOnItemButtonAction()
     {

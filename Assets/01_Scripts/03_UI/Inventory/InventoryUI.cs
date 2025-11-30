@@ -38,11 +38,6 @@ public class InventoryUI : BottomMenuUI, IItemSlotList
         itemInfoUI.HideInfo();
     }
 
-    private void OnEnable()
-    {
-        // OpenInventory();
-        // itemInfoUI.HideInfo();
-    }
 
     public void OpenInventory()
     {
