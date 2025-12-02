@@ -29,10 +29,11 @@ Idle, Move, Attack 같은 상태를 독립된 클래스로 관리하고, 현재 
 
 
 ## 3. 개발 기간
-2025.11.24 ~
+2025.11.24 ~ 2025.11.30
 
 ## 4. 스크린샷
-<img width="392" height="701" alt="image" src="https://github.com/user-attachments/assets/afdbb28b-9b7d-492d-b21a-4ea8dedecf05" />
+<img height="700" alt="image" src="https://github.com/user-attachments/assets/afdbb28b-9b7d-492d-b21a-4ea8dedecf05" />
+<img height="700" alt="image" src="https://github.com/user-attachments/assets/bf125c35-03d0-42e3-99fc-7ee33bb73950" />
 
 
 ## 5. 사용 스택
